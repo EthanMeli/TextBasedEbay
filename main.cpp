@@ -1,20 +1,22 @@
-#include "AuctionDriver.h"
-#include "ProductFactory.h"
+/**
+ * Ethan Meli
+ * Homework 3
+ * Main program implementation in C++
+*/
+#include "Driver.h"
+#include <iostream>
 
 int main() {
-    // Instantiate Auction Manager (Singleton)
-    AuctionDriver& driver = AuctionDriver::getInstance();
-    driver.loadUsersFromCSV();
-    driver.loadProductsFromCSV();
-
-    // Create dummy bids
-    std::map<int, std::vector<Bid*>> dummyBids;
-    dummyBids[101].push_back(new Bid(101, "Alice", 600.00));
-    dummyBids[102].push_back(new Bid(102, "John", 175.00));
-
-    // Seller adding a new product using Factory Pattern
-    Product* newProduct = ProductFactory::createProduct("Electronics", "Gaming Laptop", 1200.00, "New");
-    driver.addProduct(newProduct);
+    std::cout << "=== Online Bidding System ===" << std::endl;
+    
+    // Get the singleton instance of Driver
+    auto driver = Driver::getInstance();
+    
+    // Initialize the application
+    driver->initialize();
+    
+    // Run the main program loop
+    driver->run();
     
     return 0;
 }

@@ -1,42 +1,44 @@
+/**
+ * Ethan Meli
+ * Homework 3
+ * User Header in C++
+*/
 #ifndef USER_H
 #define USER_H
+
 #include <string>
-#include <vector>
-#include "Product.h"
 
 class User {
-public:
-    virtual void updateUserInfo();
-    double getAccountBalance();
-    void updateBalance(double amount);
-    virtual void displayUserInfo() = 0;
 protected:
-    long phone_no_;
-    std::string username_;
-    std::string address_;
-    double account_balance_;
+    std::string username;
+    double accountBalance;
+    std::string address;
+    std::string phoneNumber;
+    
+public:
+    User(std::string username, double accountBalance, std::string address, std::string phoneNumber);
+    virtual ~User();
+    
+    // Getters
+    std::string getUsername() const;
+    double getAccountBalance() const;
+    std::string getAddress() const;
+    std::string getPhoneNumber() const;
+    
+    // Setters
+    void setUsername(const std::string& username);
+    void setAccountBalance(double balance);
+    void setAddress(const std::string& address);
+    void setPhoneNumber(const std::string& phoneNumber);
+    
+    // Update user information
+    virtual void updateUserInfo(const std::string& username, const std::string& address, const std::string& phoneNumber);
+    
+    // Check account balance
+    virtual double checkAccountBalance() const;
+    
+    // Pure virtual function to determine the type of user
+    virtual std::string getUserType() const = 0;
 };
 
-class Seller : public User {
-public:
-    void addProductForSale();
-    void viewHistoricalData();
-    void checkAccountBalance();
-    void viewActiveAndSoldProducts();
-    void openOrCloseBid(int productID);
-    void viewBidHistory();
-private:
-    std::vector<Product*> productsForSale_;
-};
-
-class Buyer : public User {
-public:
-    void viewProductsForSale();
-    void placeBid(int productID, double bidAmount);
-    void checkAccountBalance();
-    void viewPlacedBids();
-    void viewPurchaseHistory();
-private:
-    std::vector<Bid*> bidsPlaced_;
-}; 
-#endif
+#endif // USER_H
